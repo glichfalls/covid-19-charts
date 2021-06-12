@@ -4,15 +4,18 @@ import csv
 import codecs
 from models.case import Case
 from db import DatabaseConnection
+import config
 
 # config
 url = 'https://covid.ourworldindata.org/data/owid-covid-data.csv'
 
-# read file in chunks
-chunk_size = 1000
-
 # db connection
-db = DatabaseConnection('PCR-1\SQLEXPRESS', 'Covid19', 'test', 'test')
+db = DatabaseConnection(
+    config.db_credentials['host'],
+    config.db_credentials['database'],
+    config.db_credentials['user'],
+    config.db_credentials['password']
+)
 
 continents: list = db.get_continents()
 countries: list = db.get_countries()
