@@ -23,10 +23,10 @@ if(OBJECT_ID(N'Continent') IS NOT NULL)
 go
 
 create table Continent (
-   con_id		int				identity(1,1)	not null,
-   con_name	varchar(100)	not null,
-   constraint PK_Continent primary key (con_id),
-   constraint U_name unique(con_name)
+                           con_id		int				identity(1,1)	not null,
+                           con_name	varchar(100)	not null,
+                           constraint PK_Continent primary key (con_id),
+                           constraint U_name unique(con_name)
 )
 
 if(OBJECT_ID(N'Country') IS NOT NULL)
@@ -98,9 +98,6 @@ create table Vaccinations
     vac_people_vaccinated					int,
     vac_people_fully_vaccinated				int,
     vac_new_vaccinations					int,
-    vac_total_vaccinations_per_hundred		int,
-    vac_people_vaccinated_per_hundred		int,
-    vac_people_fully_vaccinated_per_hundred	int,
     constraint PK_Vaccinations primary key (vac_id),
     constraint FK_Vaccinations_Country foreign key (cty_id) references Country(cty_id),
 );
