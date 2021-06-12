@@ -78,7 +78,7 @@ class Case:
     def reproduction_rate(self, reproduction_rate: str):
         self._reproduction_rate = reproduction_rate
 
-    def to_list(self):
+    def to_tuple(self) -> tuple:
         return (
             self.country,
             self.date,

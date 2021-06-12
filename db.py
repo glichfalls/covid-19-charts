@@ -1,5 +1,7 @@
 import pyodbc
 from models.case import Case
+from models.vaccination import Vaccination
+from models.test import Test
 
 
 class DatabaseConnection:
@@ -39,7 +41,7 @@ class DatabaseConnection:
         """
         self.cursor.execute(sql, name)
         inserted_id: int = self.cursor.fetchall()
-        self.cursor.commit()
+        self.commit()
         return inserted_id[0][0]
 
     def insert_country(self, con_id: int, iso: str, name: str) -> int:
@@ -50,19 +52,23 @@ class DatabaseConnection:
         """
         self.cursor.execute(sql, (con_id, iso, name))
         inserted_id: int = self.cursor.fetchall()
-        self.cursor.commit()
+        self.commit()
         return inserted_id[0][0]
 
     def insert_case(self, case: Case):
         sql = "exec create_cases @country = ?, @date = ?, @total_cases = ?, @new_cases = ?, @total_deaths = ?, @new_deaths = ?, @reproduction_rate = ?;"
-        self.cursor.execute(sql, case.to_list())
-        self.cursor.commit()
+        self.cursor.execute(sql, case.to_tuple())
+        self.commit()
 
-    def insert_vaccines(self):
-        pass
+    def insert_vaccinations(self, vaccination: Vaccination):
+        sql = "exec create_vaccinations @country = ?, @date = ?, @total_vaccinations = ?, @people_vaccinated = ?, @people_fully_vaccinated = ?, @new_vaccinations = ?;"
+        self.cursor.execute(sql, vaccination.to_tuple())
+        self.commit()
 
-    def insert_tests(self):
-        pass
+    def insert_tests(self, test: Test):
+        sql = "exec create_tests @country = ?, @date = ?, @new_tests = ?, @total_tests = ?, @positive_rate = ?;"
+        self.cursor.execute(sql, test.to_tuple())
+        self.commit()
 
     def commit(self):
         self.cursor.commit()

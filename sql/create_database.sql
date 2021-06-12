@@ -23,10 +23,10 @@ if(OBJECT_ID(N'Continent') IS NOT NULL)
 go
 
 create table Continent (
-                           con_id		int				identity(1,1)	not null,
-                           con_name	varchar(100)	not null,
-                           constraint PK_Continent primary key (con_id),
-                           constraint U_name unique(con_name)
+   con_id		int				identity(1,1)	not null,
+   con_name	varchar(100)	not null,
+   constraint PK_Continent primary key (con_id),
+   constraint U_name unique(con_name)
 )
 
 if(OBJECT_ID(N'Country') IS NOT NULL)
@@ -76,6 +76,7 @@ create table Tests
 (
     tes_id				int		identity(1,1)	not null,
     cty_id				int		not null,
+    tes_date			date	not null,
     tes_new_tests		int		not null,
     tes_total_tests		int		not null,
     tes_positive_rate	float	not null,

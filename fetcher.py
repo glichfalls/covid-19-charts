@@ -3,6 +3,8 @@ from contextlib import closing
 import csv
 import codecs
 from models.case import Case
+from models.vaccination import Vaccination
+from models.test import Test
 from db import DatabaseConnection
 import config
 
@@ -53,7 +55,15 @@ with closing(requests.get(url, stream=True)) as r:
 
         # insert case
         case: Case = Case.from_row(country_id, row)
-        print(case.to_list())
         db.insert_case(case)
+
+        # create test
+        test: Test = Test.from_row(country_id, row)
+        db.insert_tests(test)
+
+        # create vaccination
+        vaccination: Vaccination = Vaccination.from_row(country_id, row)
+        db.insert_vaccinations(vaccination)
+
 
 db.commit()
