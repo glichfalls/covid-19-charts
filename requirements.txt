@@ -1,2 +1,4 @@
 pyodbc~=4.0.30
 requests~=2.25.1
+numpy~=1.19.2
+matplotlib~=3.4.2
