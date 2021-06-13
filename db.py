@@ -88,7 +88,7 @@ class DatabaseConnection:
         return self.cursor.fetchall()
 
     def get_total_vaccinations(self):
-        sql = "select vac_date, sum(vac_total_vaccinations) from Vaccinations group by vac_date order by vac_date"
+        sql = "select vac_date, sum(cast(vac_total_vaccinations as bigint)) from Vaccinations group by vac_date order by vac_date"
         self.cursor.execute(sql)
         return self.cursor.fetchall()
 
