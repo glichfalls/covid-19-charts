@@ -27,10 +27,11 @@ create procedure create_country
     @continent int,
     @iso_code varchar(20),
     @name varchar(50),
+    @population int,
     @new_identity int = null output
 as begin
     set nocount on;
-    insert into Country (con_id, cty_iso_code, cty_location) values (@continent, @iso_code, @name);
+    insert into Country (con_id, cty_iso_code, cty_location, cty_population) values (@continent, @iso_code, @name, @population);
     set @new_identity = SCOPE_IDENTITY();
 end
 go

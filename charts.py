@@ -13,7 +13,7 @@ class Charts:
     # get pie chart of the total cases by continent and of the given date
     def show_pie_of_total_cases_by_continent(self, date: str = None):
         if date is None:
-            date = datetime.today().strftime('%Y-%m-%d')
+            date = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
         # load continent labels
         labels = [country[1] for country in self._db.get_continents()]
         # load cases by continent
@@ -39,11 +39,11 @@ class Charts:
         plt.show()
 
     def show_case_death_chart(self):
-        dbData = self._db.get_total_cases()
+        data = self._db.get_total_cases()
 
-        date = [datetime.strptime(x[0], '%Y-%m-%d') for x in dbData]
-        cases = [x[1] for x in dbData]
-        deaths = [x[2] for x in dbData]
+        date = [datetime.strptime(x[0], '%Y-%m-%d') for x in data]
+        cases = [x[1] for x in data]
+        deaths = [x[2] for x in data]
 
         fig, ax1 = plt.subplots()
 

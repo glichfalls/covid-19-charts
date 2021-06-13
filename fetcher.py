@@ -48,6 +48,8 @@ def rebuild_database(verbose: bool = False):
         print('clearing database')
 
     db.truncate_cases()
+    db.truncate_tests()
+    db.truncate_vaccinations()
 
     row_count: int = 0
 
@@ -71,7 +73,7 @@ def rebuild_database(verbose: bool = False):
             if verbose:
                 print('[{}] {}, {}'.format(index, row[2], row[3]))
 
-            # skip row if continent is empty
+            # skip row if continent is empty (non country data, eg world, europe, etc)
             if row[1] == "":
                 continue
 
@@ -88,8 +90,8 @@ def rebuild_database(verbose: bool = False):
             if not any(country[2] == row[0] for country in countries):
                 if verbose:
                     print('found new country {}'.format(row[2]))
-                cty_id: int = db.insert_country(continent_id, row[0], row[2])
-                countries.append([cty_id, continent_id, row[0], row[2]])
+                cty_id: int = db.insert_country(continent_id, row[0], row[2], int(float(row[44] or 0)))
+                countries.append([cty_id, continent_id, row[0], row[2], row[44]])
 
             # get the country id for the current row
             country_id: int = [c for c in countries if c[2] == row[0]][0][0]

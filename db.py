@@ -25,6 +25,14 @@ class DatabaseConnection:
         self.cursor.execute("truncate table Cases")
         self.cursor.commit()
 
+    def truncate_tests(self):
+        self.cursor.execute("truncate table Tests")
+        self.cursor.commit()
+
+    def truncate_vaccinations(self):
+        self.cursor.execute("truncate table Vaccinations")
+        self.cursor.commit()
+
     def get_continents(self):
         self.cursor.execute("select * from Continent order by con_id")
         return self.cursor.fetchall()
@@ -44,13 +52,13 @@ class DatabaseConnection:
         self.commit()
         return inserted_id[0][0]
 
-    def insert_country(self, con_id: int, iso: str, name: str) -> int:
+    def insert_country(self, con_id: int, iso: str, name: str, population: int) -> int:
         sql = """
         declare @out int;
-        exec create_country @continent = ?, @iso_code = ?, @name = ?, @new_identity = @out output;
+        exec create_country @continent = ?, @iso_code = ?, @name = ?, @population = ?, @new_identity = @out output;
         select @out as the_output;
         """
-        self.cursor.execute(sql, (con_id, iso, name))
+        self.cursor.execute(sql, (con_id, iso, name, population))
         inserted_id: int = self.cursor.fetchall()
         self.commit()
         return inserted_id[0][0]

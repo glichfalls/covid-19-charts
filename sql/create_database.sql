@@ -41,8 +41,9 @@ create table Country
     con_id			int				not null,
     cty_iso_code	varchar(10)		not null,
     cty_location	varchar(50)		not null,
+    cty_population  int             not null,
     constraint PK_Country primary key (cty_id),
-    constraint FK_Country_Contintent foreign key (con_id) references Continent(con_id),
+    constraint FK_Country_Continent foreign key (con_id) references Continent(con_id),
     constraint U_iso_code unique (cty_iso_code)
 )
 
