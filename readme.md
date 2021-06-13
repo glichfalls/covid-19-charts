@@ -21,4 +21,10 @@ db_credentials = dict(
 
 ## usage
 
+### data fetching
+
 ``python3 fetcher.py [-h --help -v --verbose]``
+
+### visualize
+
+``python3 visualize.py``
