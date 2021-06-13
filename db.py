@@ -33,10 +33,6 @@ class DatabaseConnection:
         self.cursor.execute("select * from Country")
         return self.cursor.fetchall()
 
-    def get_cases(self):
-        self.cursor.execute("select * from Cases")
-        return self.cursor.fetchall()
-
     def insert_content(self, name: str) -> int:
         sql = """
         declare @out int;
