@@ -115,10 +115,12 @@ if __name__ == "__main__":
 
         # iterate through input arguments
         for argument, value in arguments:
-            if argument in ("-v", "--verbose"):
-                rebuild_database(verbose=True)
-            elif argument in ("-h", "--help"):
+            if argument in ("-h", "--help"):
                 get_help()
+                sys.exit(0)
+            elif argument in ("-v", "--verbose"):
+                rebuild_database(verbose=True)
+                sys.exit(0)
             else:
                 print("invalid parameter `" + argument + "`")
                 sys.exit(2)
